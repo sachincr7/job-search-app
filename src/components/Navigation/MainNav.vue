@@ -25,14 +25,16 @@
             </li>
           </ul>
         </nav>
+        {{ example }}
         <div class="flex items-center h-full ml-auto">
           <profile-image v-if="isLoggedIn" data-test="profile-image" />
+
           <ActionButton
             v-else
             text="Sign In"
             type="primary"
             data-set="login-button"
-            @click="loginUser"
+            @click="LOGIN_USER"
           />
         </div>
       </div>
@@ -45,6 +47,8 @@
 import ActionButton from "../../shared/ActionButton.vue";
 import ProfileImage from "@/components/Navigation/ProfileImage.vue";
 import Subnav from "@/components/Navigation/SubNav.vue";
+import { LOGIN_USER } from "@/store";
+import { mapMutations, mapState } from "vuex";
 
 export default {
   name: "MainNav",
@@ -65,22 +69,28 @@ export default {
         { text: "Students", url: "/" },
         { text: "Jobs", url: "/jobs/results" },
       ],
-      isLoggedIn: false,
     };
   },
   computed: {
     headerHeightClass() {
+      console.log("this.isLoggedIn", this.isLoggedIn);
       return {
         "h-16": !this.isLoggedIn,
         "h-32": this.isLoggedIn,
       };
     },
+
+    // isLoggedIn() {
+    //   return this.$store.state.isLoggedIn;
+    // },
+    ...mapState(["isLoggedIn"]),
   },
 
   methods: {
-    loginUser() {
-      this.isLoggedIn = true;
-    },
+    // loginUser() {
+    //   this.$store.commit(LOGIN_USER);
+    // },
+    ...mapMutations([LOGIN_USER]),
   },
 };
 </script>

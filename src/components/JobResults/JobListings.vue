@@ -26,19 +26,17 @@
 </template>
 
 <script>
-import axios from "axios";
 import JobListing from "./JobListing.vue";
-// import JobListing from "./JobListing.vue";
+import { mapState } from "vuex";
+import { FETCH_JOBS } from "@/store";
+
 export default {
   name: "JobListings",
   components: { JobListing },
-  data() {
-    return {
-      jobs: [],
-    };
-  },
+
   computed: {
     currentPage() {
+      console.log(this.$jobs);
       const pageString = this.$route.query.page || "1";
       return Number.parseInt(pageString);
     },
@@ -59,13 +57,12 @@ export default {
       const lastIndex = pageNumber * 10;
       return this.jobs.slice(firstIndex, lastIndex);
     },
+    ...mapState(["jobs"]),
   },
 
   async mounted() {
-    const response = await axios.get("http://localhost:3000/jobs");
-    this.jobs = response.data;
+    console.log("jobs", this.jobs);
+    this.$store.dispatch(FETCH_JOBS);
   },
-
-  // components: { JobListing },
 };
 </script>

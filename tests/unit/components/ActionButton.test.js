@@ -11,6 +11,6 @@ describe("ActionButton", () => {
       },
     });
 
-    expect(wrapper.text().toMatch("Clicked"));
+    expect(wrapper.text()).toMatch("Clicked");
   });
 });
