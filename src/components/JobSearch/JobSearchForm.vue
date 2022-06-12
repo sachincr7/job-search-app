@@ -38,23 +38,26 @@
 <script>
 import TextInput from "@/shared/TextInput.vue";
 import ActionButton from "../../shared/ActionButton.vue";
+import { useRouter } from "vue-router";
+import { ref } from "@vue/reactivity";
 export default {
   name: "JobSearchForm",
   components: { ActionButton, TextInput },
-  data() {
-    return {
-      role: "",
-      location: "",
-    };
-  },
-  methods: {
-    searchForJobs() {
-      console.log("invoked");
-      this.$router.push({
+
+  setup() {
+    const router = useRouter();
+
+    const role = ref("");
+    const location = ref("");
+
+    const searchForJobs = () => {
+      router.push({
         name: "JobResults",
-        query: { role: this.role, location: this.location },
+        query: { role: role.value, location: location.value },
       });
-    },
+    };
+
+    return { searchForJobs };
   },
 };
 </script>

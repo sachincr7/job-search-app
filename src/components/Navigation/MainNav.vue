@@ -80,16 +80,10 @@ export default {
       };
     },
 
-    // isLoggedIn() {
-    //   return this.$store.state.isLoggedIn;
-    // },
     ...mapState(["isLoggedIn"]),
   },
 
   methods: {
-    // loginUser() {
-    //   this.$store.commit(LOGIN_USER);
-    // },
     ...mapMutations([LOGIN_USER]),
   },
 };
